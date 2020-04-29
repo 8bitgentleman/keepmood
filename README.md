@@ -1,16 +1,16 @@
-# KeepMood
+# keepmood
 
-KeepMood is an open source mood tracking app.
-If you know Daylio, you might recognise this.
+A new Flutter project.
 
-KeepMood actually shows you a daily graph!
+## Getting Started
 
-I am currently in the process of implementing more graphs.
+This project is a starting point for a Flutter application.
 
-## Data
-All data is stored on you own device in an SQLite database in this app's data folder.
-No data is ever shared with anyone.
+A few resources to get you started if this is your first Flutter project:
 
-## Installing
-KeepMood is not available in the Play Store, because I don't feel like paying.
-I am planning to release on F-Droid and building release versions here on GitHub.
+- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+
+For help getting started with Flutter, view our
+[online documentation](https://flutter.dev/docs), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
