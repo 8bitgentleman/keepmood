@@ -1,11 +1,15 @@
+import 'package:flutter/material.dart';
+
 enum Sentiment { veryUnhappy, unhappy, neutral, happy, veryHappy }
 
 class SentimentRecording {
   // id is not final because it can be set after insertion into database
   int id;
+  List activities;
   final DateTime time;
   final Sentiment sentiment;
   final String comment;
+
 
   SentimentRecording(this.sentiment, this.time, {this.id, this.comment = ""});
 
@@ -15,11 +19,13 @@ class SentimentRecording {
         sentiment = parseSentiment(map["sentiment"]),
         comment = map["comment"];
 
+
   Map toMap() {
     // Damn those type annotations.. You need them or it fails
     Map<String, dynamic> map = {
       "timestamp": time.toIso8601String(),
-      "sentiment": sentimentString(sentiment)
+      "sentiment": sentimentString(sentiment),
+      "activities": "",
     };
     if (id != null) {
       map["id"] = id;
@@ -69,3 +75,4 @@ Sentiment parseSentiment(String string) {
       return Sentiment.neutral;
   }
 }
+

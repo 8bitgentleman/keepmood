@@ -86,6 +86,39 @@ class MoodViewState extends State<MoodView> {
               })
         ],
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Container(
+        height: 65.0,
+        width: 65.0,
+        child: FittedBox(
+          child: FloatingActionButton(
+            backgroundColor: Colors.white,
+            onPressed: () {},
+            child: Icon(
+              Icons.add,
+              color: Colors.purple,
+            ),
+            // elevation: 5.0,
+          ),
+        ),
+      ),
+
+      bottomNavigationBar: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        color: Colors.purple,
+        notchMargin: 4.0,
+        child: new Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            IconButton(icon: Icon(Icons.library_books), onPressed: () {},),
+            IconButton(icon: Icon(Icons.show_chart), onPressed: () {},),
+            Container(width:60, height:10),
+            IconButton(icon: Icon(Icons.date_range), onPressed: () {},),
+            IconButton(icon: Icon(Icons.more_horiz), onPressed: () {},),
+          ],
+        ),
+      ),
       body: ListView(
         padding: const EdgeInsets.all(10.0),
         children: <Widget>[column],

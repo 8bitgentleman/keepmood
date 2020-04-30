@@ -10,8 +10,10 @@ class KeepMood extends StatelessWidget {
     return new MaterialApp(
         title: 'KeepMood',
         home: new MoodView(),
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.purple,
+          brightness: Brightness.dark,
+          primaryColor: Colors.purple,
         ));
   }
 }

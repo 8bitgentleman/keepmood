@@ -25,7 +25,8 @@ class MoodStorage {
     return openDatabase(await _localFile, version: 1,
         onCreate: (Database db, int version) async {
           await db.execute(
-              "CREATE TABLE $_table (id INTEGER PRIMARY KEY, sentiment TEXT, comment TEXT, timestamp TEXT);");
+              "CREATE TABLE $_table (id INTEGER PRIMARY KEY, sentiment TEXT, comment TEXT, timestamp TEXT, activities TEXT);");
+
         });
   }
 
@@ -41,8 +42,9 @@ class MoodStorage {
     if (database == null) {
       await initDatabase();
     }
+
     List<Map> maps = await database.query(_table,
-        columns: ["id", "sentiment", "comment", "timestamp"],
+        columns: ["id", "sentiment", "comment", "timestamp", "icon", "color", "activities"],
         where: "id = ?",
         whereArgs: [id]);
 
@@ -57,7 +59,7 @@ class MoodStorage {
       await initDatabase();
     }
     List<Map> maps =
-    await database.query(_table, columns: ["id", "sentiment", "comment", "timestamp"]);
+    await database.query(_table, columns: ["id", "sentiment", "comment", "timestamp","activities"]);
     List<SentimentRecording> list = new List<SentimentRecording>();
     for (var map in maps) {
       list.add(new SentimentRecording.fromMap(map));
@@ -70,7 +72,7 @@ class MoodStorage {
       await initDatabase();
     }
     List<Map> maps =
-        await database.query(_table, columns: ["id", "sentiment", "comment", "timestamp"],
+        await database.query(_table, columns: ["id", "sentiment", "comment", "timestamp","activities"],
         where: "timestamp > date(?, 'start of month')", whereArgs: [start.toIso8601String()]);
 
     List<SentimentRecording> list = new List<SentimentRecording>();
@@ -88,7 +90,7 @@ class MoodStorage {
       await initDatabase();
     }
     List<Map> maps =
-    await database.query(_table, columns: ["id", "sentiment", "comment", "timestamp"],
+    await database.query(_table, columns: ["id", "sentiment", "comment", "timestamp","activities"],
         where: "timestamp > date(?, 'start of day')", whereArgs: [start.toIso8601String()]);
 
     List<SentimentRecording> list = new List<SentimentRecording>();
@@ -113,12 +115,15 @@ class MoodStorage {
     if (database == null) {
       await initDatabase();
     }
-    return await database.delete(_table, where: "id = ?", whereArgs: [id]);
+
+    return database.delete(_table, where: "id = ?", whereArgs: [id]);
+
   }
 
   Future close() async {
     if (database != null) {
       await database.close();
+
       return;
     }
     return;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../sentiment.dart';
+import 'package:intl/intl.dart';
 
 class MoodEvent extends StatelessWidget {
   MoodEvent({Key key, @required this.recording, @required this.onDelete})
@@ -7,6 +8,8 @@ class MoodEvent extends StatelessWidget {
 
   final SentimentRecording recording;
   final ValueSetter<int> onDelete;
+  var timeFormatter = new DateFormat('jm');
+  var dayFormatter = new DateFormat('MMMMEEEEd');
   void _delete() => onDelete(recording.id);
 
   bool notNull(Object o) => o != null;
@@ -33,24 +36,102 @@ class MoodEvent extends StatelessWidget {
     return days.toString() + " days ago";
   }
 
+  Color sentimentToColor(Sentiment sentiment) {
+    switch (sentiment) {
+      case Sentiment.veryHappy:
+        return Colors.orange;
+        break;
+      case Sentiment.happy:
+        return Colors.green;
+        break;
+      case Sentiment.unhappy:
+        return Colors.blue[800];
+        break;
+      case Sentiment.veryUnhappy:
+        return Colors.blueGrey;
+        break;
+      default:
+        return Colors.purple;
+        break;
+    }
+  }
+
+  IconData sentimentToIcon(Sentiment sentiment) {
+    switch (sentiment) {
+      case Sentiment.veryHappy:
+        return Icons.sentiment_very_satisfied;
+        break;
+      case Sentiment.happy:
+        return Icons.sentiment_satisfied;
+        break;
+      case Sentiment.unhappy:
+        return Icons.sentiment_dissatisfied;
+        break;
+      case Sentiment.veryUnhappy:
+        return Icons.sentiment_very_dissatisfied;
+        break;
+      default:
+        return Icons.sentiment_neutral;
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
         child: Column(
             children: <Widget>[
+      ClipRRect(
+          clipBehavior: Clip.antiAlias,
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(5.0),
+              topRight: Radius.circular( 5.0)
+          ),
+          child: Container(
+              color: sentimentToColor(recording.sentiment),
+              child: ListTile(
+                leading: Icon(Icons.album),
+                title: Text(dayFormatter.format(recording.time)),
+                enabled: false,
+              )),
+      ),
+
       ListTile(
-          title: Text(sentimentString(recording.sentiment)),
-          subtitle: Text(timeDifferenceString(recording.time))),
-      (recording.comment != "") ? new Text(recording.comment) : null,
-      new ButtonTheme.bar(
-          child: new ButtonBar(
+//          leading: Text(
+//              sentimentString(recording.sentiment).toUpperCase(),
+//              style: TextStyle(
+//              fontSize: 20
+//              ),
+//          ),
+          leading: Icon(
+            sentimentToIcon(recording.sentiment),
+            color: sentimentToColor(recording.sentiment),
+            size: 48.0,
+          ),
+//          title: Text(sentimentString(recording.sentiment).toUpperCase() + "  " + timeFormatter.format(recording.time)),
+          title: new Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              SizedBox(height: 8.0),
+              new Text(sentimentString(recording.sentiment).toUpperCase(),
+                style: TextStyle(
+                fontSize: 20,
+                color: sentimentToColor(recording.sentiment),
+              )),
+              SizedBox(width: 8.0),
+              Text(timeFormatter.format(recording.time)),
+            ],
+          ),
+          subtitle: Text(sentimentString(recording.sentiment))),
+//      (recording.comment != "") ? new Text(recording.comment) : null,
+      new ButtonBar(
         children: <Widget>[
           FlatButton(
             child: Text("Delete"),
             onPressed: _delete,
           )
         ],
-      ))
+      )
     ].where(notNull).toList()));
   }
 }
