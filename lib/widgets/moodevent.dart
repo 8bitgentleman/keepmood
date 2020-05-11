@@ -8,8 +8,8 @@ class MoodEvent extends StatelessWidget {
 
   final SentimentRecording recording;
   final ValueSetter<int> onDelete;
-  var timeFormatter = new DateFormat('jm');
-  var dayFormatter = new DateFormat('MMMMEEEEd');
+  final timeFormatter = new DateFormat('jm');
+  final dayFormatter = new DateFormat('MMMMEEEEd');
   void _delete() => onDelete(recording.id);
 
   bool notNull(Object o) => o != null;
@@ -97,18 +97,11 @@ class MoodEvent extends StatelessWidget {
       ),
 
       ListTile(
-//          leading: Text(
-//              sentimentString(recording.sentiment).toUpperCase(),
-//              style: TextStyle(
-//              fontSize: 20
-//              ),
-//          ),
           leading: Icon(
             sentimentToIcon(recording.sentiment),
             color: sentimentToColor(recording.sentiment),
             size: 48.0,
           ),
-//          title: Text(sentimentString(recording.sentiment).toUpperCase() + "  " + timeFormatter.format(recording.time)),
           title: new Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -123,7 +116,6 @@ class MoodEvent extends StatelessWidget {
             ],
           ),
           subtitle: Text(sentimentString(recording.sentiment))),
-//      (recording.comment != "") ? new Text(recording.comment) : null,
       new ButtonBar(
         children: <Widget>[
           FlatButton(

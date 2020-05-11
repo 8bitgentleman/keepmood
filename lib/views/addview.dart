@@ -5,16 +5,16 @@ import '../widgets/monthlymoodchart.dart';
 import '../moodstorage.dart';
 import '../sentiment.dart';
 
-class ChartView extends StatefulWidget {
+class addview extends StatefulWidget {
   final MoodStorage storage;
 
-  ChartView({Key key, @required this.storage}) : super(key: key);
+  addview({Key key, @required this.storage}) : super(key: key);
 
   @override
-  createState() => new ChartViewState(storage);
+  createState() => new AddViewState(storage);
 }
 
-class ChartViewState extends State<ChartView> {
+class AddViewState extends State<addview> {
   final MoodStorage storage;
   List<SentimentRecording> today;
 
@@ -26,7 +26,7 @@ class ChartViewState extends State<ChartView> {
   }
 
   @override
-  ChartViewState(this.storage) {
+  AddViewState(this.storage) {
     _getToday();
   }
 
@@ -39,8 +39,8 @@ class ChartViewState extends State<ChartView> {
           title: Text("Charts"),
         ),
         body: ListView(children: <Widget>[
-            (today != null) ? new DailyMoodChart.fromSentimentRecordingList(today, false) : null,
-//          new MonthlyMoodChart.fromSentimentRecordingList(recordings, false)
+          (today != null) ? new DailyMoodChart.fromSentimentRecordingList(today, false) : null,
+          //new MonthlyMoodChart.fromSentimentRecordingList(recordings, false)
         ].where(notNull).toList()));
   }
 }

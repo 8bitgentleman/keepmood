@@ -8,6 +8,7 @@ import '../widgets/moodselector.dart';
 import '../widgets/moodevent.dart';
 import '../moodstorage.dart';
 import 'chartview.dart';
+import 'addview.dart';
 
 class MoodView extends StatefulWidget {
   @override
@@ -31,6 +32,7 @@ class MoodViewState extends State<MoodView> {
     fillRecordingList();
   }
 
+//  addview
   void _newSentiment(SentimentRecording recording) async {
     recording = await storage.insert(recording);
     // TODO: This is not at all very optimised...
@@ -46,8 +48,10 @@ class MoodViewState extends State<MoodView> {
     fillRecordingList();
   }
 
+
   @override
   Widget build(BuildContext context) {
+    //  addview
     Column column = new Column(
       children: <Widget>[
         MoodSelector(
@@ -58,6 +62,7 @@ class MoodViewState extends State<MoodView> {
 
     var formatter = new DateFormat('EEEE yyyy-MM-dd');
 
+//    this adds the records to the column
     if (_sentimentList != null) {
       DateTime lastTime = DateTime.now().add(new Duration(days: 2));
       for (var recording in _sentimentList.reversed) {
@@ -93,16 +98,20 @@ class MoodViewState extends State<MoodView> {
         child: FittedBox(
           child: FloatingActionButton(
             backgroundColor: Colors.white,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (context) =>
+                      new ChartView(storage: storage,)));
+            },
             child: Icon(
               Icons.add,
               color: Colors.purple,
             ),
-            // elevation: 5.0,
           ),
         ),
       ),
-
       bottomNavigationBar: BottomAppBar(
         shape: CircularNotchedRectangle(),
         color: Colors.purple,
@@ -111,11 +120,47 @@ class MoodViewState extends State<MoodView> {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            IconButton(icon: Icon(Icons.library_books), onPressed: () {},),
-            IconButton(icon: Icon(Icons.show_chart), onPressed: () {},),
+            IconButton(
+              icon: Icon(Icons.library_books),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (context) =>
+                        new ChartView(storage: storage,)));
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.show_chart),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (context) =>
+                        new ChartView(storage: storage,)));
+              },
+            ),
             Container(width:60, height:10),
-            IconButton(icon: Icon(Icons.date_range), onPressed: () {},),
-            IconButton(icon: Icon(Icons.more_horiz), onPressed: () {},),
+            IconButton(
+              icon: Icon(Icons.date_range),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (context) =>
+                        new ChartView(storage: storage,)));
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.more_horiz),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (context) =>
+                        new ChartView(storage: storage,)));
+              },
+            ),
           ],
         ),
       ),
@@ -125,6 +170,7 @@ class MoodViewState extends State<MoodView> {
       ),
     );
   }
+
 
   @override
   void dispose() {

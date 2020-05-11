@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'views/moodview.dart';
+import 'views/addactivityview.dart';
 
 void main() => runApp(new KeepMood());
 
@@ -9,7 +10,7 @@ class KeepMood extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
         title: 'KeepMood',
-        home: new MoodView(),
+        home: new AddActivityView(),
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           brightness: Brightness.dark,

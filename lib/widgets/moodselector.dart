@@ -45,10 +45,11 @@ class MoodSelectorState extends State<MoodSelector> {
       });
   }
 
-  Future<TimeOfDay> selectedTime = showTimePicker(
-    initialTime: TimeOfDay.now(),
-    context: context,
-  );
+//  Future<TimeOfDay> selectedTime = showTimePicker(
+//    initialTime: TimeOfDay.now(),
+//    context: context,
+//  );
+
   @override
   Widget build(BuildContext context) {
     return new Card(
