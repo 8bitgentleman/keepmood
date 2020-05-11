@@ -15,6 +15,8 @@ class KeepMood extends StatelessWidget {
         theme: ThemeData(
           brightness: Brightness.dark,
           primaryColor: Colors.purple,
+//          accentColor: Colors.purple,
+
         ));
   }
 }
